@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace DeveloperAssignmentTrendingGIF.Shared
 {
-    interface ITrendingGifDataService
+    interface IGifDataService
     {
-        Task<IList<TrendingGIF>> GetTrendingGIF();
-        Task<IList<TrendingGIF>> SearchGIF(string userSearch);
+        Task<List<string>> GetTrendingGIF();
+        Task<List<string>> SearchGIF(string userSearch);
     }
 }

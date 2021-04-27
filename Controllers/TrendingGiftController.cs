@@ -1,4 +1,5 @@
-﻿using DeveloperAssignmentTrendingGIF.Models;
+﻿using DeveloperAssignmentTrendingGIF.Infra;
+using DeveloperAssignmentTrendingGIF.Models;
 using DeveloperAssignmentTrendingGIF.Services;
 using DeveloperAssignmentTrendingGIF.Shared;
 using System;
@@ -13,28 +14,32 @@ namespace DeveloperAssignmentTrendingGIF.Controllers
 {
     public class TrendingGiftController : ApiController
     {
-        // GET: api/TrendingGift
+        [HttpGet]
+        [Route("TrendingGift")]
+        [CacheFilter(TimeDuration = 86400)]
         public HttpResponseMessage GetTrendingGIF()
         {
             try
             {
-                ITrendingGifDataService trendingGif = new FetchURLDataService();
-                var result = trendingGif.GetTrendingGIF();
-                return Request.CreateResponse(HttpStatusCode.OK, result);
+                IGifDataService trendingGif = new FetchURLDataService();
+                var task = trendingGif.GetTrendingGIF();
+                return Request.CreateResponse(HttpStatusCode.OK, task.Result);
             }
             catch (Exception e)
             {
-
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e.Message);
             }
         }
-        public HttpResponseMessage SearchGIF(string searchParameter)
+        [HttpGet]
+        [Route("TrendingGift/{searchParam}")]
+        [CacheFilter(TimeDuration = 100)]
+        public HttpResponseMessage SearchGIF(string searchParam)
         {
             try
             {
-                ITrendingGifDataService trendingGif = new FetchURLDataService();
-                var result = trendingGif.SearchGIF(searchParameter).Result;
-                return Request.CreateResponse(HttpStatusCode.OK, result);
+                IGifDataService trendingGif = new FetchURLDataService();
+                var task = trendingGif.SearchGIF(searchParam).Result;
+                return Request.CreateResponse(HttpStatusCode.OK, task);
             }
             catch (Exception e)
             {

@@ -89,10 +89,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infra\CacheFilter .cs" />
+    <Compile Include="Models\GiphyResponse.cs" />
     <Compile Include="Models\TrendingGIF.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\FetchURLDataService.cs" />
-    <Compile Include="Shared\ITrendingGifDataService.cs" />
+    <Compile Include="Services\FetchURLDataServiceBase.cs" />
+    <Compile Include="Services\GetTrendingGIFUrlBuilder.cs" />
+    <Compile Include="Services\GighyUrlBuilder.cs" />
+    <Compile Include="Services\SearchGIFServiceUrlBuilder.cs" />
+    <Compile Include="Shared\IGifDataService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

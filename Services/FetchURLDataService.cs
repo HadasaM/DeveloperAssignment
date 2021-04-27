@@ -1,5 +1,6 @@
 ﻿using DeveloperAssignmentTrendingGIF.Models;
 using DeveloperAssignmentTrendingGIF.Shared;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,58 +11,34 @@ using System.Web;
 
 namespace DeveloperAssignmentTrendingGIF.Services
 {
-    public class FetchURLDataService : ITrendingGifDataService
+    public class FetchURLDataService : FetchURLDataServiceBase, IGifDataService
     {
-        private const string GiphyEndPoint = "http://api.giphy.com/v1/gifs/";
-        private const string apiKey = "";
 
-        public async Task<IList<TrendingGIF>> GetTrendingGIF()
+        public async Task<List<string>> GetTrendingGIF()
         {
-
-            string TrendingEndPoint = GiphyEndPoint + "trending";
-            List<TrendingGIF> TrendingGIFList = new List<TrendingGIF>();
-
             try
             {
-                var giphyRes = await new HttpClient().GetAsync(TrendingEndPoint);
-                var giphyContent = await giphyRes.Content.ReadAsStringAsync();
-                //DeSerialization to Giphy response
-                // Do forEach on GIF Object[] and build TrendingGIF.GiftUrl with profile_url:
-                //TrendingGIFList.Add(new TrendingGIF { GifUrl = giphyContent });
-
+                GighyUrlBuilder builder = new TrendingGIFServiceUrlBuilder();
+                return await GetGifUrlDataFromGighy(builder);
             }
             catch (Exception e)
             {
-
+                throw;
             }
-           
-                     
-            return null;
         }
-
-        public async Task<IList<TrendingGIF>> SearchGIF(string userSearch)
+        public async Task<List<string>> SearchGIF(string userRequestedCriteria)
         {
-
-            string TrendingEndPoint = GiphyEndPoint + "search?q=" + userSearch + "&api_key=" + apiKey;
-            List<TrendingGIF> TrendingGIFList = new List<TrendingGIF>();
-
             try
             {
-                var giphyRes = await new HttpClient().GetAsync(TrendingEndPoint);
-                //DeSerialization to Giphy response
-                // Do forEach on GIF Object[] and build TrendingGIF.GiftUrl with profile_url:
-                //TrendingGIFList.Add(new TrendingGIF { GifUrl = giphyContent });
-
+                GighyUrlBuilder builder = new SearchGIFServiceUrlBuilder(userRequestedCriteria);
+                return await GetGifUrlDataFromGighy(builder);
             }
             catch (Exception e)
             {
-
+                throw;
             }
 
-
-            return null;
         }
     }
-
-
 }
+
