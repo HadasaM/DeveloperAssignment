@@ -19,7 +19,7 @@ namespace DeveloperAssignmentTrendingGIF.Services
             try
             {
                 GighyUrlBuilder builder = new TrendingGIFServiceUrlBuilder();
-                return await GetGifUrlDataFromGighy(builder);
+                return await GetGifUrlDataFromGighy(builder);        
             }
             catch (Exception e)
             {

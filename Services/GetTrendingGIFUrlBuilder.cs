@@ -12,8 +12,8 @@ namespace DeveloperAssignmentTrendingGIF.Services
             var builder = new UriBuilder(TrendingEndPoint);
             builder.Port = -1;
             var query = HttpUtility.ParseQueryString(builder.Query);
-            query["api_key"] = "eRIquN2g1W6ADO6VAgHzOY1wS5uvW6Su";//Move to config file
-            query["limit"] = "100";
+            query["api_key"] = ApiKey;//Move to config file
+            query["limit"] = Limit;
             builder.Query = query.ToString();
             ServiceUrl =  builder.ToString();
         }       

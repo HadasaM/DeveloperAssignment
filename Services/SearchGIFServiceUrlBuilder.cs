@@ -20,8 +20,8 @@ namespace DeveloperAssignmentTrendingGIF.Services
             var builder = new UriBuilder(searchGifEndPoint);
             builder.Port = -1;
             var query = HttpUtility.ParseQueryString(builder.Query);
-            query["api_key"] = "eRIquN2g1W6ADO6VAgHzOY1wS5uvW6Su";//Take from config
-            query["limit"] = "2";
+            query["api_key"] = ApiKey;//Move to config file
+            query["limit"] = Limit;
             if (searchParam != null)
                 query["q"] = searchParam;
             builder.Query = query.ToString();
